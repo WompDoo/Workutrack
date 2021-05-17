@@ -54,6 +54,16 @@ table {
 .negative {
     color: red;
 }
+.mat-dialog-container {
+    .mat-dialog-content {
+        text-align: center !important;
+    }
+    
+    .mat-dialog-actions {
+        justify-content: space-between !important;
+    }
+}
+
 
 .positive {
     color: rgb(25, 163, 25);

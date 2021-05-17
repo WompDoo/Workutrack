@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface WeightData {
     weight: number;
@@ -48,6 +49,9 @@ export class AppComponent implements OnInit {
 
     dev = 0;
     devMode = false;
+    clickCount = 0;
+
+    constructor(public dialog: MatDialog) { }
 
     ngOnInit() {
         if (!localStorage.getItem('startDate')) {
@@ -171,6 +175,46 @@ export class AppComponent implements OnInit {
         }
     }
 
+
+    click(e: any) {
+        this.clickCount++;
+        setTimeout(() => {
+            if (this.clickCount === 2) {
+                this.devClearWeight(e);
+            } 
+            this.clickCount = 0;
+        }, 250)
+    }
+
+
+    devClearWeight(e: any) {
+        var oldItems = JSON.parse(localStorage.getItem('weightData') || '[]');
+        var oldWeight = Number(localStorage.getItem('oldWeight'));
+
+        oldItems.forEach((data: WeightData) => {
+            if (e.weight === data.weight) {
+                const dialogRef = this.dialog.open(DialogWeight, {
+                    width: '250px',
+                });
+
+                dialogRef.afterClosed().subscribe(result => {
+                    if (result) {
+                        var filtered = oldItems.filter(function (el: any) { return el.weight !== data.weight });
+                        localStorage.setItem('weightData', JSON.stringify(filtered));
+                        oldItems = JSON.parse(localStorage.getItem('weightData') || '[]');
+                        if (oldItems.length !== 0 && oldWeight === e.weight) {
+                            localStorage.setItem('oldWeight', JSON.stringify(oldItems[0].weight));
+                        } else {
+                            localStorage.setItem('oldWeight', JSON.stringify(0))
+                        }
+                        this.dataSource = JSON.parse(localStorage.getItem('weightData') || '[]');
+                    }
+                });
+            }
+        });
+
+    }
+
     devLvl(target: string, mode: string) {
         if (target === 'even') {
             if (mode === '+') {
@@ -211,4 +255,20 @@ export class AppComponent implements OnInit {
         }
         this.initData();
     }
+}
+
+@Component({
+    selector: 'dialog-weight',
+    templateUrl: 'dialog-weight.html',
+    styleUrls: ['./app.component.scss']
+})
+export class DialogWeight {
+
+    constructor(
+        public dialogRef: MatDialogRef<DialogWeight>) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
 }
