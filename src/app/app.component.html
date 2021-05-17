@@ -52,7 +52,7 @@
             <ng-container matColumnDef="difference">
                 <th mat-header-cell *matHeaderCellDef> Difference </th>
                 <td mat-cell *matCellDef="let element" [ngClass]="{'negative' : element.weightDiff > 0, 
-                    'positive' : element.weightDiff < 0}"> {{element.weightDiff}} kg</td>
+                    'positive' : element.weightDiff < 0}"> {{element.weightDiff | number: '1.0-1'}} kg</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
