@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 export interface WeightData {
     weight: number;
     date: Date;
+    weightDiff: number;
 }
 
 @Component({
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
     time = 15;
     running = 7;
 
-    displayedColumns: string[] = ['date', 'weight'];
+    displayedColumns: string[] = ['date', 'weight', 'difference'];
     dataSource = [];
 
     MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -87,10 +88,17 @@ export class AppComponent implements OnInit {
 
     addWeight() {
         var oldItems = JSON.parse(localStorage.getItem('weightData') || '[]');
+        var oldWeight = Number(localStorage.getItem('oldWeight'));
+        let weDiff = 0;
+        if (oldWeight) {
+            weDiff = -oldWeight + this.weight;
+        }
         var newItem = {
             weight: this.weight,
-            date: this.today
+            date: this.today,
+            weightDiff: weDiff
         };
+        localStorage.setItem('oldWeight', JSON.stringify(this.weight));
         oldItems.unshift(newItem);
         localStorage.setItem('weightData', JSON.stringify(oldItems));
         this.dataSource = oldItems;
