@@ -91,7 +91,7 @@ export class AppComponent implements OnInit {
             weight: this.weight,
             date: this.today
         };
-        oldItems.push(newItem);
+        oldItems.unshift(newItem);
         localStorage.setItem('weightData', JSON.stringify(oldItems));
         this.dataSource = oldItems;
     }
