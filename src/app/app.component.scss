@@ -1,12 +1,53 @@
-.nav {
-  width: 100%;
-  display: flex;
-  text-align: center;
-  height: 50px;
+.mat-toolbar {
+  padding-right: 0px;
+}
 
-  button {
-    width: 100%;
-    border: none;
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.example-full-width {
+  width: 50%;
+}
+
+table {
+  width: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.dev {
+  z-index: 10;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  div {
+      position: relative;
+    .dev-head {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: -5px;
+    }
+    button {
+      width: 50px;
+      padding: 5px;
+      margin: 5px;
+    }
   }
 }
 
@@ -17,6 +58,22 @@
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 30px;
+  margin-top: 26px;
+
+  &.weight {
+    width: 100%;
+    top: 50%;
+    height: 100%;
+    margin-top: 56px;
+    overflow: scroll;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  table {
+    margin-bottom: 30px;
+  }
+
   .date {
     margin-bottom: 20px;
     line-height: 30px;
@@ -54,5 +111,6 @@
   width: 100%;
   text-align: center;
   font-size: 10px;
-  bottom: 2px;
+  bottom: 0px;
+  background: white;
 }
