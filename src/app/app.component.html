@@ -12,18 +12,72 @@
     <div class="date">Today is {{today | date}}</div>
     <div class="heading">Todays list:</div>
     <div class="container">
-        <div (click)="toggleSit = !toggleSit" [ngClass]="{ 'done': toggleSit }">Sit-ups: {{dataToDisplay.sitUps}}</div>
-        <div (click)="toggleSqt = !toggleSqt" [ngClass]="{ 'done': toggleSqt }">Squats: {{dataToDisplay.squat}}</div>
-        <div (click)="togglePush = !togglePush" [ngClass]="{ 'done': togglePush }">Push-ups: {{dataToDisplay.pushUps}}
+        <div>
+            <div class="list-item" (click)="toggleSit = !toggleSit" [ngClass]="{ 'done': toggleSit }">Sit-ups:
+                {{dataToDisplay.sitUps}}
+            </div>
+            <div *ngIf="devMode" class="devers">
+                <button (click)="raise('sitUps')">+</button>
+                <button (click)="lower('sitUps')">-</button>
+            </div>
         </div>
-        <div (click)="togglePlank = !togglePlank" [ngClass]="{ 'done': togglePlank }">Plank: {{dataToDisplay.plank}} sec
+        <div>
+            <div class="list-item" (click)="toggleSqt = !toggleSqt" [ngClass]="{ 'done': toggleSqt }">Squats:
+                {{dataToDisplay.squat}}
+            </div>
+            <div *ngIf="devMode" class="devers">
+                <button (click)="raise('squat')">+</button>
+                <button (click)="lower('squat')">-</button>
+            </div>
         </div>
-        <div class="heading">Movement:</div>
-        <div (click)="toggleMove = !toggleMove" [ngClass]="{ 'done': toggleMove }">Time: {{dataToDisplay.time}} min
+        <div>
+            <div class="list-item" (click)="togglePush = !togglePush" [ngClass]="{ 'done': togglePush }">Push-ups:
+                {{dataToDisplay.pushUps}}
+            </div>
+            <div *ngIf="devMode" class="devers">
+                <button (click)="raise('pushUps')">+</button>
+                <button (click)="lower('pushUps')">-</button>
+            </div>
         </div>
-        <div (click)="toggleMove = !toggleMove" [ngClass]="{ 'done': toggleMove }">Steps: {{dataToDisplay.steps}}</div>
-        <div (click)="toggleMove = !toggleMove" [ngClass]="{ 'done': toggleMove }">Running: {{dataToDisplay.running}}
-            min
+        <div>
+            <div class="list-item" (click)="countdownPlank()" [ngClass]="{ 'done': togglePlank, 'paused': isPaused }">Plank:
+                {{dataToDisplay.plank}}
+                sec
+            </div>
+            <div *ngIf="devMode" class="devers">
+                <button (click)="raise('plank')">+</button>
+                <button (click)="lower('plank')">-</button>
+            </div>
+        </div>
+        <div>
+            <div class="heading list-item">Movement:</div>
+        </div>
+        <div>
+            <div class="list-item" (click)="toggleMove = !toggleMove" [ngClass]="{ 'done': toggleMove }">Time: {{dataToDisplay.time}} min
+            </div>
+            <div *ngIf="devMode" class="devers">
+                <button (click)="raise('time')">+</button>
+                <button (click)="lower('time')">-</button>
+            </div>
+        </div>
+        <div>
+            <div class="list-item" (click)="toggleMove = !toggleMove" [ngClass]="{ 'done': toggleMove }">Steps:
+                {{dataToDisplay.steps}}
+            </div>
+            <div *ngIf="devMode" class="devers">
+                <button (click)="raise('steps')">+</button>
+                <button (click)="lower('steps')">-</button>
+            </div>
+        </div>
+        <div>
+            <div class="list-item" (click)="toggleMove = !toggleMove" [ngClass]="{ 'done': toggleMove }">Running:
+                {{dataToDisplay.running}}
+                min
+            </div>
+            <div *ngIf="devMode" class="devers">
+                <button (click)="raise('running')">+</button>
+                <button (click)="lower('running')">-</button>
+            </div>
         </div>
     </div>
 </div>

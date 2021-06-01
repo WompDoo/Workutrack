@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export interface WeightData {
     weight: number;
@@ -46,10 +46,17 @@ export class AppComponent implements OnInit {
     started: string | null = '';
     workoutList = true;
     weight: number = 0;
+    isPaused = false;
+
+    plankArray: number[] = [];
+    interval: any;
+    index = 0;
 
     dev = 0;
     devMode = false;
     clickCount = 0;
+
+
 
     constructor(public dialog: MatDialog) { }
 
@@ -163,6 +170,65 @@ export class AppComponent implements OnInit {
         }
     }
 
+    raise(target: any) {
+        switch (target) {
+            case 'pushUps':
+                this.pushUps++;
+                break;
+            case 'sitUps':
+                this.sitUps++;
+                break;
+            case 'plank':
+                this.plank = this.plank + 8;
+                break;
+            case 'squat':
+                this.kykk++;
+                break;
+            case 'time':
+                this.time = this.time + 15;
+                break;
+            case 'running':
+                this.running = this.running + 7;
+                break;
+            case 'steps':
+                this.steps = this.steps + 1000;
+                break;
+            default:
+            // code block
+        }
+        this.setData(4);
+        this.initData();
+    }
+
+    lower(target: any) {
+        switch (target) {
+            case 'pushUps':
+                this.pushUps--;
+                break;
+            case 'sitUps':
+                this.sitUps--;
+                break;
+            case 'plank':
+                this.plank = this.plank - 8;
+                break;
+            case 'squat':
+                this.kykk--;
+                break;
+            case 'time':
+                this.time = this.time - 15;
+                break;
+            case 'running':
+                this.running = this.running - 7
+                break;
+            case 'steps':
+                this.steps = this.steps - 1000;
+                break;
+            default:
+            // code block
+        }
+        this.setData(4);
+        this.initData();
+    }
 
     devModeToggle() {
         this.dev++;
@@ -181,7 +247,7 @@ export class AppComponent implements OnInit {
         setTimeout(() => {
             if (this.clickCount === 2) {
                 this.devClearWeight(e);
-            } 
+            }
             this.clickCount = 0;
         }, 250)
     }
@@ -213,6 +279,31 @@ export class AppComponent implements OnInit {
             }
         });
 
+    }
+
+    countdownPlank() {
+        this.togglePlank = false;
+        if (!this.isPaused && this.interval) {
+            this.isPaused = true;
+        } else {
+            this.isPaused = false;
+        }
+        if (!this.interval) {
+            for (let i = this.plank; i >= 0; i--) {
+                this.plankArray.push(i)
+            }
+
+            this.interval = window.setInterval(() => {
+                if (!this.isPaused) {
+                    this.dataToDisplay.plank = this.plankArray[this.index++];
+                    if (this.index == this.plankArray.length) {
+                        clearInterval(this.interval);
+                        this.togglePlank = true;
+                        this.dataToDisplay.plank = this.plank;
+                    }
+                }
+            }, 1000)
+        }
     }
 
     devLvl(target: string, mode: string) {

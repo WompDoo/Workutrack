@@ -36,12 +36,12 @@ table {
   justify-content: space-around;
   align-content: center;
   div {
-      position: relative;
+    position: relative;
     .dev-head {
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        top: -5px;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: -5px;
     }
     button {
       width: 50px;
@@ -52,21 +52,20 @@ table {
 }
 
 .negative {
-    color: red;
+  color: red;
 }
 .mat-dialog-container {
-    .mat-dialog-content {
-        text-align: center !important;
-    }
-    
-    .mat-dialog-actions {
-        justify-content: space-between !important;
-    }
+  .mat-dialog-content {
+    text-align: center !important;
+  }
+
+  .mat-dialog-actions {
+    justify-content: space-between !important;
+  }
 }
 
-
 .positive {
-    color: rgb(25, 163, 25);
+  color: rgb(25, 163, 25);
 }
 
 .calendar-body {
@@ -104,7 +103,20 @@ table {
   .container {
     white-space: nowrap;
     div {
-      padding: 13px;
+      position: relative;
+      .list-item {
+        padding: 13px;
+        position: relative;
+      }
+      .devers {
+        position: absolute;
+        right: -70px;
+        padding: 5px;
+        top: 5px;
+        button {
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
@@ -122,6 +134,10 @@ table {
 .done {
   color: gray;
   text-decoration: line-through;
+}
+
+.paused {
+    color: red;
 }
 
 .started {
